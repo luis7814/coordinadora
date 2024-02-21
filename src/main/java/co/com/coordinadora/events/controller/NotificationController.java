@@ -1,0 +1,38 @@
+package co.com.coordinadora.events.controller;
+
+import co.com.coordinadora.events.object.NotificationDto;
+import co.com.coordinadora.events.service.NotificationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+public class NotificationController {
+
+    @Autowired
+    private NotificationService notificationService;
+
+    @PostMapping("/notification")
+    public ResponseEntity<NotificationDto> save(@RequestBody NotificationDto notificationDto) {
+        return new ResponseEntity<>(notificationService.save(notificationDto), HttpStatus.OK);
+    }
+
+    @PutMapping("/notification")
+    public ResponseEntity<NotificationDto> update(@RequestBody NotificationDto notificationDto) {
+        return new ResponseEntity<>(notificationService.update(notificationDto), HttpStatus.OK);
+    }
+
+    @GetMapping("/notification/{id}")
+    public ResponseEntity<NotificationDto> findById(@PathVariable String id) {
+        return new ResponseEntity<>(notificationService.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/notification")
+    public ResponseEntity<List<NotificationDto>> findAll() {
+        return new ResponseEntity<>(notificationService.findAll(), HttpStatus.OK);
+    }
+}
+
