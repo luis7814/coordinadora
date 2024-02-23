@@ -3,7 +3,6 @@ package co.com.coordinadora.events.service;
 import co.com.coordinadora.events.model.Event;
 import co.com.coordinadora.events.object.EventDto;
 import co.com.coordinadora.events.object.NominatimResponse;
-import co.com.coordinadora.events.object.OsmElement;
 import co.com.coordinadora.events.object.OsmResponse;
 import co.com.coordinadora.events.repository.EventRepository;
 import co.com.coordinadora.events.utilities.Utilities;
@@ -12,9 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

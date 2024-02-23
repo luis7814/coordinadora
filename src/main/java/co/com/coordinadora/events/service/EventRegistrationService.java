@@ -53,9 +53,9 @@ public class EventRegistrationService {
 
     private EventRegistration mapperToEventRegistration(EventRegistrationDto eventRegistrationDto) {
         EventRegistration eventRegistration = new EventRegistration();
-        eventRegistration.setRegistryId(eventRegistration.getRegistryId());
-        eventRegistration.setRegistrationDate(eventRegistration.getRegistrationDate());
-        eventRegistration.setUserId(eventRegistration.getUserId());
+        eventRegistration.setRegistryId(eventRegistrationDto.getRegistryId());
+        eventRegistration.setRegistrationDate(eventRegistrationDto.getRegistrationDate());
+        eventRegistration.setUserId(eventRegistrationDto.getUserId());
         eventRegistration.setEventId(eventRegistrationDto.getEventId());
 
         return eventRegistration;
