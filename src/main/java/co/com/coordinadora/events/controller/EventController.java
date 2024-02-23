@@ -41,5 +41,12 @@ public class EventController {
     public ResponseEntity<List<EventDto>> findAll() {
         return new ResponseEntity<>(eventService.findAll(), HttpStatus.OK);
     }
+
+    @GetMapping("/event/geocoding/{id}")
+    @Operation(summary = "Listado de informacion por geocodificacion")
+    public ResponseEntity<EventDto> findByGeocoding(@PathVariable String id) {
+        return new ResponseEntity<>(eventService.findByGeocoding(id), HttpStatus.OK);
+    }
+
 }
 
