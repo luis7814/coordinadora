@@ -1,18 +1,24 @@
 package co.com.coordinadora.events.service;
 
+import co.com.coordinadora.events.controller.UserController;
+import co.com.coordinadora.events.exceptions.NotFoundException;
 import co.com.coordinadora.events.model.EventRegistration;
 import co.com.coordinadora.events.object.EventRegistrationDto;
 import co.com.coordinadora.events.repository.EventRegistrationRepository;
 import co.com.coordinadora.events.utilities.Utilities;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class EventRegistrationService {
+
+    private static final Logger logger = LoggerFactory.getLogger(EventRegistrationService.class);
 
     @Autowired
     private EventRegistrationRepository eventRegistrationRepository;
@@ -20,25 +26,36 @@ public class EventRegistrationService {
     public EventRegistrationDto save(EventRegistrationDto eventRegistrationDto) {
         eventRegistrationDto.setRegistryId(Utilities.id());
 
+        logger.info("save " + eventRegistrationDto.getRegistryId());
+
         eventRegistrationRepository.save(mapperToEventRegistration(eventRegistrationDto));
         return eventRegistrationDto;
     }
 
     public EventRegistrationDto update(EventRegistrationDto eventRegistrationDto) {
+
+        logger.info("update " + eventRegistrationDto.getRegistryId());
+
         eventRegistrationRepository.save(mapperToEventRegistration(eventRegistrationDto));
         return eventRegistrationDto;
     }
 
     public EventRegistrationDto findById(String id) {
+
+        logger.info("findById " + id);
+
         Optional<EventRegistration> eventRegistrationOptional = eventRegistrationRepository.findById(id);
-        return eventRegistrationOptional.isPresent() ?
-                mapperToEventRegistrationDto(eventRegistrationOptional.get()) : null;
+        return eventRegistrationOptional
+                .map(this::mapperToEventRegistrationDto)
+                .orElseThrow(() -> new NotFoundException("Información no encontrada"));
     }
 
-    public List<EventRegistrationDto> findAll() {
-        return eventRegistrationRepository.findAll().stream()
-                .map(this::mapperToEventRegistrationDto)
-                .collect(Collectors.toList());
+    public Page<EventRegistrationDto> findAll(Pageable pageable) {
+
+        logger.info("findAll");
+
+        return eventRegistrationRepository.findAll(pageable)
+                .map(this::mapperToEventRegistrationDto);
     }
 
     private EventRegistrationDto mapperToEventRegistrationDto(EventRegistration eventRegistration) {
@@ -53,9 +70,9 @@ public class EventRegistrationService {
 
     private EventRegistration mapperToEventRegistration(EventRegistrationDto eventRegistrationDto) {
         EventRegistration eventRegistration = new EventRegistration();
-        eventRegistration.setRegistryId(eventRegistration.getRegistryId());
-        eventRegistration.setRegistrationDate(eventRegistration.getRegistrationDate());
-        eventRegistration.setUserId(eventRegistration.getUserId());
+        eventRegistration.setRegistryId(eventRegistrationDto.getRegistryId());
+        eventRegistration.setRegistrationDate(eventRegistrationDto.getRegistrationDate());
+        eventRegistration.setUserId(eventRegistrationDto.getUserId());
         eventRegistration.setEventId(eventRegistrationDto.getEventId());
 
         return eventRegistration;
