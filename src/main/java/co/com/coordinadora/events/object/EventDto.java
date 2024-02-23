@@ -3,6 +3,7 @@ package co.com.coordinadora.events.object;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class EventDto {
@@ -13,4 +14,9 @@ public class EventDto {
     private LocalDate startDate;
     private LocalDate endDate;
     private String userId;
+    private Double latitude;
+    private Double longitude;
+
+    private String address;
+    private List<String> searhNearbySites;
 }

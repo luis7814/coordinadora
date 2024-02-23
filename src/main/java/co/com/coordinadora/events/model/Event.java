@@ -31,4 +31,12 @@ public class Event {
 
     @Column (name = "user_id")
     private String userId;
+
+    @Column (name = "latitude")
+    private Double latitude;
+
+    @Column (name = "length")
+    private Double longitude;
+
+
 }
