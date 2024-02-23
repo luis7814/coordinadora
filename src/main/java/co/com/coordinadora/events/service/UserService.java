@@ -5,6 +5,8 @@ import co.com.coordinadora.events.object.UserDto;
 import co.com.coordinadora.events.repository.UserRepository;
 import co.com.coordinadora.events.utilities.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,10 +37,9 @@ public class UserService {
                 mapperToUserDto(userOptional.get()) : null;
     }
 
-    public List<UserDto> findAll() {
-        return userRepository.findAll().stream()
-                .map(this::mapperToUserDto)
-                .collect(Collectors.toList());
+    public Page<UserDto> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable)
+                .map(this::mapperToUserDto);
     }
 
     private UserDto mapperToUserDto(User user) {

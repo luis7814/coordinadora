@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @RestController
@@ -38,8 +40,8 @@ public class EventController {
 
     @GetMapping("/event")
     @Operation(summary = "Listar todos los Eventos")
-    public ResponseEntity<List<EventDto>> findAll() {
-        return new ResponseEntity<>(eventService.findAll(), HttpStatus.OK);
+    public ResponseEntity<Page<EventDto>> findAll(Pageable pageable) {
+        return new ResponseEntity<>(eventService.findAll(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/event/geocoding/{id}")

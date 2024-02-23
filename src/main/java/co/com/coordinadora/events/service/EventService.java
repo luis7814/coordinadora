@@ -7,6 +7,8 @@ import co.com.coordinadora.events.object.OsmResponse;
 import co.com.coordinadora.events.repository.EventRepository;
 import co.com.coordinadora.events.utilities.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -44,10 +46,9 @@ public class EventService {
                 mapperToEventDto(eventOptional.get()) : null;
     }
 
-    public List<EventDto> findAll() {
-        return eventRepository.findAll().stream()
-            .map(this::mapperToEventDto)
-            .collect(Collectors.toList());
+    public Page<EventDto> findAll(Pageable pageable) {
+        return eventRepository.findAll(pageable)
+            .map(this::mapperToEventDto);
     }
 
     public EventDto findByGeocoding(String id) {

@@ -5,6 +5,8 @@ import co.com.coordinadora.events.object.NotificationDto;
 import co.com.coordinadora.events.repository.NotificationRepository;
 import co.com.coordinadora.events.utilities.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,10 +37,9 @@ public class NotificationService {
                 mapperToNotificationDto(notificationOptional.get()) : null;
     }
 
-    public List<NotificationDto> findAll() {
-        return notificationRepository.findAll().stream()
-                .map(this::mapperToNotificationDto)
-                .collect(Collectors.toList());
+    public Page<NotificationDto> findAll(Pageable pageable) {
+        return notificationRepository.findAll(pageable)
+                .map(this::mapperToNotificationDto);
     }
 
     private NotificationDto mapperToNotificationDto(Notification notification) {

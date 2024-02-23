@@ -5,6 +5,8 @@ import co.com.coordinadora.events.object.EventRegistrationDto;
 import co.com.coordinadora.events.repository.EventRegistrationRepository;
 import co.com.coordinadora.events.utilities.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,10 +37,9 @@ public class EventRegistrationService {
                 mapperToEventRegistrationDto(eventRegistrationOptional.get()) : null;
     }
 
-    public List<EventRegistrationDto> findAll() {
-        return eventRegistrationRepository.findAll().stream()
-                .map(this::mapperToEventRegistrationDto)
-                .collect(Collectors.toList());
+    public Page<EventRegistrationDto> findAll(Pageable pageable) {
+        return eventRegistrationRepository.findAll(pageable)
+                .map(this::mapperToEventRegistrationDto);
     }
 
     private EventRegistrationDto mapperToEventRegistrationDto(EventRegistration eventRegistration) {
