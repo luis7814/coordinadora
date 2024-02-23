@@ -1,14 +1,14 @@
 # Ejecución del proyecto
 Para lograr correr el proyecto, se debe tener instalado lo siguiente:
 ##### - JDK 17
-##### - POSTGRESQL - PGADMIN
+##### - POSTGRESQL - PGADMIN 4
 ##### - Apache Maven
 ##### - Puerto 8089 libre
 
 Instalado y configurado lo anterior, procedemos a crear la base de datos con la información que esta en el archivo  
 #### application.properties.
 
-Procedemos a levantar la aplicación con 
+Procedemos levantar la aplicación con 
 #### mvn spring-boot:run
 Este se debe ejecutar en la raiz del proyecto, ya que se está iniciando directamente desde el código fuente sin la necesidad de empaquetarlo en un archivo JAR. O también podemos ejecutarlo desde nuestro IDE sea Eclipse o IntelliJ.
 
@@ -23,4 +23,7 @@ Levantado el proyecto, consultaremos y probaremos los servicios ingresando a
 #### http://localhost:8089/swagger-ui/index.html
 
 
+# Demás información
 
+En el siguiente link se encuentran videos y entregables de base de datos.
+#### https://drive.google.com/drive/folders/19zH5Q1ysuphPNLBjuPHjKhuj0yfg0vtl?usp=drive_link
