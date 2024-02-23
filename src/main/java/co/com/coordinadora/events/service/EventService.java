@@ -1,11 +1,14 @@
 package co.com.coordinadora.events.service;
 
+import co.com.coordinadora.events.exceptions.NotFoundException;
 import co.com.coordinadora.events.model.Event;
 import co.com.coordinadora.events.object.EventDto;
 import co.com.coordinadora.events.object.NominatimResponse;
 import co.com.coordinadora.events.object.OsmResponse;
 import co.com.coordinadora.events.repository.EventRepository;
 import co.com.coordinadora.events.utilities.Utilities;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,10 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class EventService {
+
+    private static final Logger logger = LoggerFactory.getLogger(EventService.class);
 
     @Autowired
     private EventRepository eventRepository;
@@ -31,27 +35,41 @@ public class EventService {
     public EventDto save(EventDto eventDto) {
         eventDto.setEventId(Utilities.id());
 
+        logger.info("save " + eventDto.getEventId());
+
         eventRepository.save(mapperToEvent(eventDto));
         return eventDto;
     }
 
     public EventDto update(EventDto eventDto) {
+
+        logger.info("update " + eventDto.getEventId());
+
         eventRepository.save(mapperToEvent(eventDto));
         return eventDto;
     }
 
     public EventDto findById(String id) {
+
+        logger.info("findById " + id);
+
         Optional<Event> eventOptional = eventRepository.findById(id);
-        return eventOptional.isPresent() ?
-                mapperToEventDto(eventOptional.get()) : null;
+        return eventOptional
+                .map(this::mapperToEventDto)
+                .orElseThrow(() -> new NotFoundException("Información no encontrada"));
     }
 
     public Page<EventDto> findAll(Pageable pageable) {
+
+        logger.info("findAll");
+
         return eventRepository.findAll(pageable)
             .map(this::mapperToEventDto);
     }
 
     public EventDto findByGeocoding(String id) {
+
+        logger.info("findByGeocoding " + id);
 
         EventDto eventDto = findById(id);
         if (eventDto != null) {
