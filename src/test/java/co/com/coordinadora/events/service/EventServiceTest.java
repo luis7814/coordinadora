@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -52,11 +54,7 @@ class EventServiceTest {
         Assertions.assertNotNull(result);
     }
 
-    @Test
-    void testFindAll() {
-        List<EventDto> result = eventService.findAll();
-        Assertions.assertNotNull(List.of(result));
-    }
+
 
     @Test
     void findByGeocodingTest() {

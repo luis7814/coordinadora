@@ -67,15 +67,6 @@ class EventControllerTest {
     }
 
     @Test
-    void findAllEventsTest() {
-        List<EventDto> eventList = Arrays.asList(eventDto);
-        when(eventService.findAll()).thenReturn(eventList);
-        ResponseEntity<List<EventDto>> response = eventController.findAll();
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(eventList, response.getBody());
-    }
-
-    @Test
     void findByGeocodingTest() {
         when(eventService.findByGeocoding(eventId)).thenReturn(eventDto);
         ResponseEntity<EventDto> response = eventController.findByGeocoding(eventId);

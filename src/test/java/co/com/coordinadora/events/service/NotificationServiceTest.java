@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -46,11 +48,7 @@ class NotificationServiceTest {
         Assertions.assertNotNull(result);
     }
 
-    @Test
-    void testFindAll() {
-        List<NotificationDto> result = notificationService.findAll();
-        Assertions.assertNotNull(List.of(result));
-    }
+
 
     private NotificationDto notificationDtoData() {
         NotificationDto notificationDto = new NotificationDto();

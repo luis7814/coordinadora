@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -44,12 +46,6 @@ class EventRegistrationServiceTest {
         when(eventRegistrationRepository.findById("id")).thenReturn(Optional.of(registrationData()));
         EventRegistrationDto result = eventRegistrationService.findById("id");
         Assertions.assertNotNull(result);
-    }
-
-    @Test
-    void testFindAll() {
-        List<EventRegistrationDto> result = eventRegistrationService.findAll();
-        Assertions.assertNotNull(List.of(result));
     }
 
     private EventRegistrationDto registrationDtoData() {

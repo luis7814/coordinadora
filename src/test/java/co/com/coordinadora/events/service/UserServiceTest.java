@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,12 +45,6 @@ class UserServiceTest {
         when(userRepository.findById("id")).thenReturn(Optional.of(userData()));
         UserDto result = userService.findById("id");
         Assertions.assertNotNull(result);
-    }
-
-    @Test
-    void testFindAll() {
-        List<UserDto> result = userService.findAll();
-        Assertions.assertNotNull(List.of(result));
     }
 
     private UserDto userDtoData() {

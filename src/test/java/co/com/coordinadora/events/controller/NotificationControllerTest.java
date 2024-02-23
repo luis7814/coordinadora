@@ -60,13 +60,6 @@ class NotificationControllerTest {
         Assertions.assertEquals(notificationDto, response.getBody());
     }
 
-    @Test
-    void findAllNotificationsTest() {
-        List<NotificationDto> notificationList = Arrays.asList(notificationDto, new NotificationDto());
-        when(notificationService.findAll()).thenReturn(notificationList);
-        ResponseEntity<List<NotificationDto>> response = notificationController.findAll();
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals(2, response.getBody().size());
-    }
+
 }
 

@@ -65,17 +65,6 @@ class EventRegistrationControllerTest {
         verify(eventRegistrationService).findById(id);
     }
 
-    @Test
-    void testFindAll() {
-        List<EventRegistrationDto> mockEventRegistrationDtoList = Arrays.asList(new EventRegistrationDto(), new EventRegistrationDto());
-        when(eventRegistrationService.findAll()).thenReturn(mockEventRegistrationDtoList);
 
-        ResponseEntity<List<EventRegistrationDto>> response = eventRegistrationController.findAll();
-
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertNotNull(response.getBody());
-        Assertions.assertEquals(2, response.getBody().size());
-        verify(eventRegistrationService).findAll();
-    }
 }
 

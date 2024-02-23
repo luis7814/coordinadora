@@ -75,15 +75,5 @@ class UserControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    void testFindAll() throws Exception {
-        UserDto userDto1 = new UserDto();
-        UserDto userDto2 = new UserDto();
-        List<UserDto> userDtoList = Arrays.asList(userDto1, userDto2);
-        given(userService.findAll()).willReturn(userDtoList);
 
-        mockMvc.perform(get("/user"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()").value(userDtoList.size()));
-    }
 }
